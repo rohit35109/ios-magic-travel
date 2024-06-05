@@ -67,5 +67,12 @@ extension ViewController: UITableViewDelegate {
         let cityName = cityAndStates[state]?[indexPath.row] ?? ""
         print("User tapped on cell at \(indexPath) that is: \(cityName) | \(state)")
         
+//        let detailViewController = UIViewController()
+//        detailViewController.view.backgroundColor = .green
+//        present(detailViewController, animated: true)
+//        navigationController?.pushViewController(detailViewController, animated: true)
+        
+        performSegue(withIdentifier: "showCountryDetails", sender: self)
+        
     }
 }
