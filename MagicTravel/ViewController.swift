@@ -8,14 +8,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet var countriesTableView: UITableView!
     
-    var countries: [String] = ["Germay", "France", "India", "China", "Australia", "America", "UK", "Maxico", "Pakistan", "Bangladesh"]
+    struct Constants {
+        static let cellIdentifier = "MagicCountryCell"
+    }
     
-    var continentCountryMapping: [String: String] = ["Germay": "Europe", "France": "Europe", "India": "Asia", "China": "Asia", "Australia": "Australia", "Brazil": "South America", "Canada": "North America", "Maxico": "North America", "Pakistan": "Asia", "Bangladesh": "Asia"]
-    
-    var cityAndStates: [String: [String]] = [
+    private var cityAndStates: [String: [String]] = [
         "TamilNadu": ["Chennai", "Madurai", "Coimbatur"],
         "Maharastra": ["Mumbai", "Pune"],
         "UttarPardesh": ["Prayagraj", "Noida", "Lakhnow"],
@@ -26,20 +24,13 @@ class ViewController: UIViewController {
         "Punjab": ["Mohali", "Dharmashala"]
     ]
     
-    
-    struct Constants {
-        static let cellIdentifier = "MagicCountryCell"
-    }
+    @IBOutlet var countriesTableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         countriesTableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellIdentifier)
-
-        // if you want to give programmatically you can use below
-        // countriesTableView.dataSource = self
-        // countriesTableView.delegate = self
     }
 
 
@@ -71,7 +62,10 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("User tapped on cell at \(indexPath)")
         tableView.deselectRow(at: indexPath, animated: true)
+        let state = Array(cityAndStates.keys)[indexPath.section]
+        let cityName = cityAndStates[state]?[indexPath.row] ?? ""
+        print("User tapped on cell at \(indexPath) that is: \(cityName) | \(state)")
+        
     }
 }
